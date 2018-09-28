@@ -6,29 +6,60 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>To Do List</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700&amp;subset=latin-ext" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
+
     <div class="toDoList-app">
-        <h2 class="toDoList-title">ToDo List</h2>
-        <ol class="toDoList">
-            <!--here will be tasks with api -->
-            <li class="toDoItem">
-                <input type="checkbox"/>
-                Make na new post about...
-                <img src="./trash.png">
-            </li>
-            <li class="toDoItem">
-                <input type="checkbox"/>
-                Proof read the new post.
-                <img src="./trash.png">
-            </li>
-            <li class="toDoItem">
-                <input type="checkbox"/>
-                Publish the new post.
-                <img src="./trash.png">
-            </li>
-        </ol>
-        <input class="toDoList-input" type="text">
+
+        <div class="toDoList-header">
+            <h4 class="toDoList-title">ToDo List</h4>
+        </div>
+
+        <div class="toDoList-content">
+
+            <ol class="toDoList">
+                <!--here will be tasks with api -->
+                <li class="toDoItem done">
+                    <label>Publish the new post.
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <button>
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </li>
+                <li class="toDoItem undone">
+                    <label>Publish the new post.
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <button>
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </li>
+                <li class="toDoItem undone">
+                    <label>Publish the new post.
+                        <input type="checkbox">
+                        <span class="checkmark"></span>
+                    </label>
+                    <button>
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </li>
+            </ol>
+
+            <div class="toDoList-add">
+                <button>
+                    <i class="fas fa-plus"></i>
+                </button>
+                <input class="toDoList-input" type="text">
+            </div>
+
+        </div>
+
     </div>
 </body>
 </html>

@@ -1,2 +1,227 @@
+/*General*/
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: #e9f0f4;
+}
+
+/*Remove the default button style*/
+button {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/*Remove the default input text style*/
+.toDoList-input {
+  height: 27px;
+  border: none;
+  outline: none;
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  color: #2e3641;
+  margin-left: 20px;
+}
+
+/*Style the toDoList*/
+/*Container*/
+.toDoList-app {
+  width: 320px;
+  margin: 40px auto;
+}
+
+/*Header*/
+.toDoList-header {
+  height: 36px;
+  background: #2e3641;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.toDoList-title {
+  color: #dae4eb;
+  font-weight: 700;
+  font-size: 14px;
+  margin-left: 43px;
+}
+
+/*ToDoList and toDoItem*/
+.toDoList-content {
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-top: none;
+}
+
+.toDoItem {
+  height: 30px;
+  list-style: none;
+  border-bottom: 1px solid #e6ebed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.done {
+  color: #9eb2c0;
+  text-decoration: line-through;
+}
+
+.done i {
+  color: #9eb2c0;
+}
+
+.undone {
+  color: #2e3641;
+}
+
+.toDoItem label {
+  display: block;
+  position: relative;
+  padding-left: 42px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 12px;
+}
+
+.toDoItem input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkmark {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  height: 10px;
+  width: 10px;
+  background-color: #fafbfc;
+  border: 1px solid #dae4eb;
+  margin-left: 10px;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.toDoItem label input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.toDoItem label .checkmark:after {
+  left: 2px;
+  bottom: 2px;
+  width: 3px;
+  height: 5px;
+  border: solid #a8bd44;
+  border-width: 0 1px 1px 0;
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+}
+
+.toDoList-header::before {
+  content: '';
+  position: absolute;
+  height: 36px;
+  width: 1px;
+  background: #454f5c;
+  top: 0;
+  left: 29px;
+}
+
+.toDoList-header::after {
+  content: '';
+  position: absolute;
+  height: 36px;
+  width: 1px;
+  background: #454f5c;
+  top: 0;
+  left: 32px;
+}
+
+.toDoItem::before {
+  content: '';
+  position: absolute;
+  height: 29px;
+  width: 1px;
+  background: #f2e3df;
+  top: 0;
+  left: 28px;
+}
+
+.toDoItem::after {
+  content: '';
+  position: absolute;
+  height: 29px;
+  width: 1px;
+  background: #f2e3df;
+  top: 0;
+  left: 31px;
+}
+
+.toDoList-add {
+  position: relative;
+}
+
+.toDoList-add::before {
+  content: '';
+  position: absolute;
+  height: 29px;
+  width: 1px;
+  background: #f2e3df;
+  top: 0;
+  left: 28px;
+}
+
+.toDoList-add::after {
+  content: '';
+  position: absolute;
+  height: 29px;
+  width: 1px;
+  background: #f2e3df;
+  top: 0;
+  left: 31px;
+}
+
+/*/*Style the icons*/
+.fa-trash-alt {
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-right: 12px;
+  width: 10px;
+  height: 10px;
+  color: #2e3641;
+}
+
+.fa-plus {
+  margin-left: 10px;
+  width: 10px;
+  height: 10px;
+  color: #dae4eb;
+}
 
 /*# sourceMappingURL=main.css.map */
