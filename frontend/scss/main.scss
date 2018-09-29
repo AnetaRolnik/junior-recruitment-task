@@ -93,6 +93,7 @@ button {
   justify-content: space-between;
   align-items: center;
   position: relative;
+  color: $primary-color
 }
 
 //If task is done
@@ -105,10 +106,6 @@ button {
   color: $taskDone-color;
 }
 
-//If task is undone
-.undone {
-  color: $primary-color;
-}
 
 //Create a custom checkbox
 .toDoItem label {

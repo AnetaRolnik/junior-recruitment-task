@@ -79,6 +79,7 @@ button {
       -ms-flex-align: center;
           align-items: center;
   position: relative;
+  color: #2e3641;
 }
 
 .done {
@@ -88,10 +89,6 @@ button {
 
 .done i {
   color: #9eb2c0;
-}
-
-.undone {
-  color: #2e3641;
 }
 
 .toDoItem label {
