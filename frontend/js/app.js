@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const list = document.querySelector(".toDoList");
     const form = document.querySelector(".toDoList-add");
+    const tooltip = form.querySelector("div");
     let input = document.querySelector(".toDoList-input");
 
     //get data from api using Ajax
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
             response.data.map(el => {
                 //if you want IE11 and OperaMini to support this way of string declaration, you have to use babel
-                let task = `<li class="toDoItem" id="${el.id}">
+                let task = `<li class="toDoItem" data-id="${el.id}">
                     <label> ${el.title}
                         <input type="checkbox">
                         <span class="checkmark"></span>
@@ -27,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function(){
                 if (el.isComplete) {
                     document.querySelector(".toDoItem").classList.add("done")
                 };
-
                 list.innerHTML += task;
             })
         }
@@ -42,36 +42,46 @@ document.addEventListener("DOMContentLoaded", function(){
     //post data to api using Ajax
     form.addEventListener('submit', function(e) {
         e.preventDefault();
+        //form validation
+        const regEx= /^\s*$/;
 
-        const xhrPost = new XMLHttpRequest();
-        xhrPost.open("POST", "https://todo-simple-api.herokuapp.com/todos", true);
-        xhrPost.setRequestHeader("Content-type", "application/json");
+        if (regEx.test(input.value)) {
+            input.classList.add("required");
+            tooltip.classList.add("tooltip");
 
-        xhrPost.addEventListener('load', function() {
-            if (this.status === 200) {
-                const response = JSON.parse(this.responseText);
+        } else {
+            const xhrPost = new XMLHttpRequest();
+            xhrPost.open("POST", "https://todo-simple-api.herokuapp.com/todos", true);
+            xhrPost.setRequestHeader("Content-type", "application/json");
 
-                let newTask = `<li class="toDoItem" id="${response.data.id}">
-                    <label> ${response.data.title}
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <button>
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </li>`;
-                list.innerHTML += newTask;
-            }
-        });
+            xhrPost.addEventListener('load', function () {
+                if (this.status === 200) {
+                    const response = JSON.parse(this.responseText);
 
-        xhrPost.send(JSON.stringify
-            ({
-            "title": input.value,
-            "description": "",
-            "isComplete": false
-            })
-        );
-        input.value = "";
+                    let newTask = `<li class="toDoItem" data-id="${response.data.id}">
+                        <label> ${response.data.title}
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                        <button>
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </li>`;
+                    list.innerHTML += newTask;
+                }
+            });
+
+            xhrPost.send(JSON.stringify
+                ({
+                    "title": input.value,
+                    "description": "",
+                    "isComplete": false
+                })
+            );
+            input.value = "";
+            input.classList.remove("required");
+            tooltip.classList.remove("tooltip");
+        }
     })
 
 
@@ -80,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function(){
         if (e.srcElement.className === 'fas fa-trash-alt') {
             const xhrDelete = new XMLHttpRequest();
             const item = e.srcElement.parentElement.parentElement;
-            const id = item.id;
+            const id = item.dataset.id;
 
             xhrDelete.open("DELETE", "https://todo-simple-api.herokuapp.com/todos/" + id, true);
 

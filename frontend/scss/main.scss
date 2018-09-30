@@ -33,6 +33,7 @@ $primary-value: 10px;
 body {
   font-family: 'Lato', sans-serif;
   background: #e9f0f4;
+  line-height: 1px;
 }
 
 /*Remove the default button style*/
@@ -52,7 +53,8 @@ button {
   font-family: 'Lato', sans-serif;
   font-size: 12px;
   color: $primary-color;
-  margin-left: $primary-value*2;
+  padding-left: 10px;
+  width: calc(318px - 31px);
 }
 
 /*Style the toDoList*/
@@ -83,6 +85,12 @@ button {
   background: #fff;
   border: 1px solid #dbdbdb;
   border-top: none;
+  max-height: 300px;
+}
+
+.toDoList {
+  max-height: 240px;
+  overflow-y: auto;
 }
 
 .toDoItem {
@@ -93,10 +101,10 @@ button {
   justify-content: space-between;
   align-items: center;
   position: relative;
-  color: $primary-color
+  color: $primary-color;
 }
 
-//If task is done
+/*If task is done*/
 .done{
   color: $taskDone-color;
   text-decoration: line-through;
@@ -106,8 +114,7 @@ button {
   color: $taskDone-color;
 }
 
-
-//Create a custom checkbox
+/*Create a custom checkbox*/
 .toDoItem label {
   display: block;
   position: relative;
@@ -153,7 +160,46 @@ button {
   transform: rotate(45deg);
 }
 
-//Create a vertical lines
+/*Create a custom validator and tooltip*/
+.required {
+  background: $verticalLine2-color;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  font-size: 12px;
+  background-color: $primary-color;
+  color: $secondary-color;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 110%;
+  left: 0;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid;
+  border-color: $primary-color transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+/*Create a vertical lines*/
 .toDoList-header::before {
   @include verticalLine (36px, $verticalLine-color, 29px);
 }
@@ -163,27 +209,28 @@ button {
 }
 
 .toDoItem::before {
-  @include verticalLine (29px, $verticalLine2-color, 28px);
+  @include verticalLine (30px, $verticalLine2-color, 28px);
 }
 
 .toDoItem::after {
-  @include verticalLine (29px, $verticalLine2-color, 31px);
+  @include verticalLine (30px, $verticalLine2-color, 31px);
 }
 
 .toDoList-add {
   position: relative;
+  display: flex;
+  justify-content: space-between;
 }
 
 .toDoList-add::before {
-  @include verticalLine (29px, $verticalLine2-color, 28px);
+  @include verticalLine (27px, $verticalLine2-color, 28px);
 }
 
 .toDoList-add::after {
-  @include verticalLine (29px, $verticalLine2-color, 31px);
+  @include verticalLine (27px, $verticalLine2-color, 31px);
 }
 
-
-/*/*Style the icons*/
+/*Style the icons*/
 .fa-trash-alt {
   object-fit: contain;
   margin-right: 12px;
@@ -192,6 +239,7 @@ button {
 
 .fa-plus {
   margin-left: $primary-value;
+  margin-right: 9px;
   @include icon($secondary-color);
 }
 
