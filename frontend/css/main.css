@@ -116,11 +116,16 @@ button {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  top: -4px;
+  left: 0;
+  height: 10px;
+  width: 10px;
+  margin-left: 10px;
 }
 
 .checkmark {
   position: absolute;
-  top: 2px;
+  top: -4px;
   left: 0;
   height: 10px;
   width: 10px;
@@ -276,6 +281,21 @@ button {
   width: 10px;
   height: 10px;
   color: #dae4eb;
+}
+
+/*Drag&drop list items*/
+[draggable] {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-user-drag: element;
+}
+
+.toDoItem.over {
+  opacity: 0.3;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -12,12 +12,11 @@ document.addEventListener("DOMContentLoaded", function(){
     xhrGet.addEventListener('load', function() {
         if (this.status === 200) {
             const response = JSON.parse(this.responseText);
-            console.log(response)
 
             response.data.map(el => {
                 //if you want IE11 and OperaMini to support this way of string declaration, you have to use babel
                 if (el.isComplete) {
-                    let task = `<li class="toDoItem done" data-id="${el.id}">
+                    let task = `<li class="toDoItem done" data-id="${el.id}" draggable="true">
                         <label> ${el.title}
                             <input class="checkbox" type="checkbox" checked>
                             <span class="checkmark"></span>
@@ -29,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function(){
                     list.innerHTML += task;
 
                 } else {
-                    let task = `<li class="toDoItem" data-id="${el.id}">
+                    let task = `<li class="toDoItem" data-id="${el.id}" draggable="true">
                         <label> ${el.title}
                             <input class="checkbox" type="checkbox">
                             <span class="checkmark"></span>
@@ -41,6 +40,9 @@ document.addEventListener("DOMContentLoaded", function(){
                     list.innerHTML += task;
                 }
             })
+             //drag&drop list items
+            const elements = document.querySelectorAll('.toDoItem');
+            [].forEach.call(elements, addDnDHandlers);
         }
         xhrGet.addEventListener('error', function() {
             console.error('Connection error!')
@@ -69,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 if (this.status === 200) {
                     const response = JSON.parse(this.responseText);
 
-                    let newTask = `<li class="toDoItem" data-id="${response.data.id}">
+                    let newTask = `<li class="toDoItem" data-id="${response.data.id}" draggable="true">
                         <label> ${response.data.title}
                             <input class="checkbox" type="checkbox">
                             <span class="checkmark"></span>
@@ -79,6 +81,10 @@ document.addEventListener("DOMContentLoaded", function(){
                         </button>
                     </li>`;
                     list.innerHTML += newTask;
+
+                    //drag&drop list items
+                    const elements = document.querySelectorAll('.toDoItem');
+                    [].forEach.call(elements, addDnDHandlers);
                 }
             });
 
@@ -152,4 +158,62 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     });
 
+
+    //drag&drop list items
+    let dragSrcEl = null;
+
+    function handleDragStart(e) {
+        dragSrcEl = this;
+
+        e.dataTransfer.effectAllowed = 'move';
+        e.dataTransfer.setData('text/html', this.outerHTML);
+
+        this.classList.add('dragElem');
+    }
+
+    function handleDragOver(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        this.classList.add('over');
+
+        e.dataTransfer.dropEffect = 'move';
+        return false;
+    }
+
+    function handleDragEnter(e) {
+    }
+
+    function handleDragLeave() {
+        this.classList.remove('over');
+    }
+
+    function handleDrop(e) {
+        if (e.stopPropagation) {
+            e.stopPropagation();
+        }
+
+        if (dragSrcEl !== this) {
+            this.parentNode.removeChild(dragSrcEl);
+            let dropHTML = e.dataTransfer.getData('text/html');
+            this.insertAdjacentHTML('beforebegin',dropHTML);
+            let dropElem = this.previousSibling;
+            addDnDHandlers(dropElem);
+        }
+        this.classList.remove('over');
+        return false;
+    }
+
+    function handleDragEnd() {
+        this.classList.remove('over');
+    }
+
+    function addDnDHandlers(elem) {
+        elem.addEventListener('dragstart', handleDragStart, false);
+        elem.addEventListener('dragenter', handleDragEnter, false)
+        elem.addEventListener('dragover', handleDragOver, false);
+        elem.addEventListener('dragleave', handleDragLeave, false);
+        elem.addEventListener('drop', handleDrop, false);
+        elem.addEventListener('dragend', handleDragEnd, false);
+    }
 })

@@ -127,11 +127,16 @@ button {
   position: absolute;
   opacity: 0;
   cursor: pointer;
+  top: -4px;
+  left: 0;
+  height: $primary-value;
+  width: $primary-value;
+  margin-left: $primary-value;
 }
 
 .checkmark {
   position: absolute;
-  top: 2px;
+  top: -4px;
   left: 0;
   height: $primary-value;
   width: $primary-value;
@@ -243,6 +248,15 @@ button {
   @include icon($secondary-color);
 }
 
+/*Drag&drop list items*/
+[draggable] {
+  cursor: grabbing;
+  user-select: none;
+  -webkit-user-drag: element;
+}
 
+.toDoItem.over {
+  opacity:0.3;
+}
 
 
