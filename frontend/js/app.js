@@ -12,23 +12,34 @@ document.addEventListener("DOMContentLoaded", function(){
     xhrGet.addEventListener('load', function() {
         if (this.status === 200) {
             const response = JSON.parse(this.responseText);
+            console.log(response)
 
             response.data.map(el => {
                 //if you want IE11 and OperaMini to support this way of string declaration, you have to use babel
-                let task = `<li class="toDoItem" data-id="${el.id}">
-                    <label> ${el.title}
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                    <button>
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </li>`;
-
                 if (el.isComplete) {
-                    document.querySelector(".toDoItem").classList.add("done")
-                };
-                list.innerHTML += task;
+                    let task = `<li class="toDoItem done" data-id="${el.id}">
+                        <label> ${el.title}
+                            <input class="checkbox" type="checkbox" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                        <button>
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </li>`;
+                    list.innerHTML += task;
+
+                } else {
+                    let task = `<li class="toDoItem" data-id="${el.id}">
+                        <label> ${el.title}
+                            <input class="checkbox" type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                        <button>
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </li>`;
+                    list.innerHTML += task;
+                }
             })
         }
         xhrGet.addEventListener('error', function() {
@@ -60,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
                     let newTask = `<li class="toDoItem" data-id="${response.data.id}">
                         <label> ${response.data.title}
-                            <input type="checkbox">
+                            <input class="checkbox" type="checkbox">
                             <span class="checkmark"></span>
                         </label>
                         <button>
@@ -103,4 +114,42 @@ document.addEventListener("DOMContentLoaded", function(){
             xhrDelete.send();
         }
     })
+
+    //put request with ajax
+    document.body.addEventListener("click", function(e) {
+        if (e.srcElement.className === 'checkbox') {
+            const xhrPut = new XMLHttpRequest();
+            const item = e.srcElement.parentElement.parentElement;
+            const title = item.querySelector('label').innerText;
+            const id = item.dataset.id;
+
+            xhrPut.open("PUT", "https://todo-simple-api.herokuapp.com/todos/" + id, true);
+            xhrPut.setRequestHeader("Content-type", "application/json");
+
+            xhrPut.addEventListener('load', function () {
+                if (this.status === 200) {
+                    e.srcElement.checked ? item.classList.add("done") : item.classList.remove("done");
+                }
+            });
+
+            if (e.srcElement.checked) {
+                xhrPut.send(JSON.stringify
+                    ({
+                        "title": title,
+                        "description": "",
+                        "isComplete": true
+                    })
+                )
+            } else {
+                xhrPut.send(JSON.stringify
+                    ({
+                        "title": title,
+                        "description": "",
+                        "isComplete": false
+                    })
+                )
+            }
+        }
+    });
+
 })
