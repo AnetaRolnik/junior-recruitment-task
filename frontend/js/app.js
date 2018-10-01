@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function(){
     xhrGet.addEventListener('load', function() {
         if (this.status === 200) {
             const response = JSON.parse(this.responseText);
-
             response.data.map(el => {
                 //if you want IE11 and OperaMini to support this way of string declaration, you have to use babel
                 if (el.isComplete) {
@@ -99,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
             input.classList.remove("required");
             tooltip.classList.remove("tooltip");
         }
-    })
+    });
 
 
     //delete item using Ajax
@@ -210,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function addDnDHandlers(elem) {
         elem.addEventListener('dragstart', handleDragStart, false);
-        elem.addEventListener('dragenter', handleDragEnter, false)
+        elem.addEventListener('dragenter', handleDragEnter, false);
         elem.addEventListener('dragover', handleDragOver, false);
         elem.addEventListener('dragleave', handleDragLeave, false);
         elem.addEventListener('drop', handleDrop, false);
